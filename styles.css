@@ -1,0 +1,58 @@
+html,body{margin:0;padding:0}
+body{font: 76% arial,sans-serif;text-align:center}
+p{margin:0 10px 10px}
+a{padding:5px; text-decoration:none; color:#000000;}
+div#header{
+	margin:0;
+	padding-left:10px;
+	background-repeat:no-repeat;
+	background: url(http://facultytracker.ncat.edu/AD.jpg);
+	width:1100px;
+	height:80px;
+}
+div#container{text-align:left}
+div#content p{line-height:1.4}
+div#content form{padding-left:3px}
+/*div#navigation{background:#FFFF7A;}*/
+div#navigation ul, table{margin:15px 0; padding:0; list-style-type:none;}
+div#navigation li, tr{margin-bottom:5px;}
+div#extra{background:#CCC8B3;}
+div#footer{background:#BFBD93;}
+div#footer p{margin:0;padding:5px 10px}
+div#container{width:900px;margin:0 auto}
+div#content{float:left;width:700px}
+div#navigation{
+	float:left;
+	width:200px;
+	height: 500px;
+	background-repeat:no-repeat
+	background-image: url(http://facultytracker.ncat.edu/Navigation.jpg);
+}
+div#extra{float:right;width:500px}
+div#footer{clear:both;width:100%}
+
+
+table.weekly {
+	border-width: 1px;
+	border-spacing: 2px;
+	border-style: solid;
+	border-color: gold;
+	border-collapse: collapse;
+	background-color: rgb(213, 230, 242);
+}
+table.weekly th {
+	border-width: 1px;
+	padding: 1px;
+	border-style: dotted;
+	border-color: navy;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
+table.weekly td {
+	border-width: 1px;
+	padding: 1px;
+	border-style: dotted;
+	border-color: navy;
+	background-color: white;
+	-moz-border-radius: 0px 0px 0px 0px;
+}
