@@ -56,7 +56,7 @@ table.weekly td {
 
 <?php
 //The connection to the database
-include('../connect.php');
+include('connect.php');
 
 	$selected_db = mysql_select_db($databaseName, $con);
 
@@ -113,7 +113,7 @@ include('../connect.php');
 			$url = $url . "?eventID=" . $row['eventID'];
 			$url = "window.open('".$url."','','width=310,height=355,0,status=0,scrollbars=1,left=500,top=20')";
 			echo "<td><b><a href='javascript:void();' onClick=".$url.">" . $row['Title'] . "</a></b><br/><small>". $row['Start'] . "-" . $row['End'] . "</small></td>";			
-			echo '<td><a href="edit.php?eventID=' . $row['eventID'] . '">Edit</a></td>';
+			echo '<td><a href="Edit.php?eventID=' . $row['eventID'] . '">Edit</a></td>';
 			echo "</tr>";
 		}
 	}	

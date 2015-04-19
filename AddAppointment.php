@@ -47,7 +47,7 @@ function checkRepeat($date, $Stime)
 
 <?php
 
-include('../connect.php');
+include('connect.php');
 
 //This selects the database	
 $selected_db = mysql_select_db($databaseName, $con);
@@ -66,6 +66,12 @@ $radioValue = $_POST['radiobutton'];
 $adhoc = $_POST['adhoc'];
 $uID = $_SESSION['staffID'];
 
+if(isset($_GET['edit']) && !empty($_GET['edit'])) {
+    $edit = true;
+    $eventID = mysql_real_escape_string($_GET['edit']);
+} else {
+    $edit = false;
+}
 //To prevent script hacking
 mysql_real_escape_string($descrip);
 
@@ -101,17 +107,25 @@ $unixEnd = strtotime($endDate);
 	if ($rpt == '1')
 	{
 		// This inserts the data into the database
+        if($edit) {
+        $sql = "UPDATE `event` SET `staffID` = '$uID', `Type` = '$type', `Title` = '$event', `Date` = '$date', `Start` = '$Stime', `End` = '$Etime', `Location` = '$location', `Description` = '$descrip' WHERE `eventID` = '$eventID'"; 
+        } else {
 		$sql = "INSERT INTO event(staffID, Type, Title, Date, Start, End, Location, Description) 
 								VALUES ('$uID', '$type', '$event', '$date', '$Stime', '$Etime', '$location', '$descrip')";
+            
+        }
 		while($unixStart <= $unixEnd)
 		{
 			//Code to add the next week to the event (7 days, 24 hours, 60 minutes, 60 seconds) 
 			$nextWeek = $unixStart + (7 * 24 * 60 * 60);
 		
 			//Query to add the information into the database
+            if($edit) {
+                $sql = "UPDATE `event` SET `staffID` = '$uID', `Type` = '$type', `Title` = '$event', `Date` = '$date', `Start` = '$Stime', `End` = '$Etime', `Location` = '$location', `Description` = '$descrip' WHERE `eventID` = '$eventID'";
+            } else {
 			$query = "INSERT INTO event(staffID, Type, Title, Date, Start, End, Location, Description) 
 				VALUES ('$uID', '$type', '$event', '$date', '$Stime', '$Etime', '$location', '$descrip')";
-
+            }
 			// Inserts the entry into the database
 			mysql_query($query) or die(mysql_error());
 			
@@ -130,15 +144,23 @@ $unixEnd = strtotime($endDate);
 			//Overrides current schedule to add this one time event
 		if ($adhoc =='1')
 		{
+            if($edit) {
+                $sql = "UPDATE `event` SET `staffID` = '$uID', `Type` = '$type', `Title` = '$event', `Date` = '$date', `Start` = '$Stime', `End` = '$Etime', `Location` = '$location', `Description` = '$descrip', `Ahoc` = '$adhoc' WHERE `eventID` = '$eventID'";
+            } else {
 			$sql = "INSERT INTO event(staffID, Type, Title, Date, Start, End, Location, Description, Ahoc) 
 									VALUES ('$uID', '$type', '$event', '$date', '$Stime', '$Etime', '$location', '$descrip', '$adhoc')";
+            }
 			mysql_query($sql) or die(mysql_error());	
 		}
 		else
 		{
 		// This inserts the data into the database
+            if($edit) {
+                $sql = "UPDATE `event` SET `staffID` = '$uID', `Type` = '$type', `Title` = '$event', `Date` = '$date', `Start` = '$Stime', `End` = '$Etime', `Location` = '$location', `Description` = '$descrip' WHERE `eventID` = '$eventID'";
+            } else {
 		$sql = "INSERT INTO event(staffID, Type, Title, Date, Start, End, Location, Description) 
 								VALUES ('$uID', '$type', '$event', '$date', '$Stime', '$Etime', '$location', '$descrip')";
+            }
 		mysql_query($sql) or die(mysql_error());	
 		}
 	}	

@@ -11,6 +11,10 @@ if (!isset($_SESSION['basic_is_logged_in'])
 	exit;	
 }
 
+//The connection to the database
+include('connect.php');
+
+
 
 ?>
 
@@ -413,18 +417,39 @@ function trim(str)
 
 </script>
    
-<form name="Appointment" action="AddAppointment.php" method="post">
+<form name="Appointment" action="AddAppointment.php<?php echo empty($_GET['eventID']) ? '':'?edit='.$_GET['eventID'].''; ?>" method="post">
+<?php
+if(!empty($_GET['eventID'])) {
+    $eventID = $_GET['eventID'];
+    
+    // query the database to provide preselected defaults
+    $query = 'SELECT * FROM `event` WHERE `eventID` = '.mysql_real_escape_string($eventID);
 
+    $qResult = mysql_query($query);
+    if($qResult != false)
+    {
+        $data = mysql_fetch_array($qResult);
+        $eventTitle = $data['Title'];
+        
+        $eventType = $data['Type'];
+        $eventLocation = $data['Location'];
+        $eventDesc = $data['Description'];
+        $eventDate = $data['Date'];
+        $eventStart = $data['Start'];
+        $eventEnd = $data['End'];
+    }
+}
+?>
   <p>
     <label for="Title">Title:</label>
-      <input name="Title" type="text" id="Title" size="30"/>
+      <input name="Title" type="text" <? echo "value=\"{$eventTitle}\""; ?>id="Title" size="30"/>
       <label for="Type">Type:</label>
       <select name="Type" id="Type">
-        <option value="1">Class</option>
-        <option value="2">Out of Office</option>
-        <option value="3">Lunch</option>
-        <option value="4">Office</option>
-        <option value="5">Meeting</option>
+        <option value="1" <? ($eventType == '1') ? 'selected':''; ?>>Class</option>
+        <option value="2" <? ($eventType == '2') ? 'selected':''; ?>>Out of Office</option>
+        <option value="3" <? ($eventType == '3') ? 'selected':''; ?>>Lunch</option>
+        <option value="4" <? ($eventType == '4') ? 'selected':''; ?>>Office</option>
+        <option value="5" <? ($eventType == '5') ? 'selected':''; ?>>Meeting</option>
       </select>
     </label>
     
@@ -491,12 +516,14 @@ function trim(str)
   </label>
   <p>
     <label>Location:
-      <input type="text" size="49" name="Location" id="Location" />
+      <input type="text" size="49" name="Location" <? echo "value=\"{$eventLocation}\""; ?> id="Location" />
     </label>
   </p>
   <p>
     <label>Description: <br />
-      <textarea name="Description" cols="55" rows="3" id="Description">No description</textarea>
+        <textarea name="Description" cols="55" rows="3" id="Description">
+        <? echo $eventDesc; ?>
+        </textarea>
     </label>
   </p>
   <p>.</p>
