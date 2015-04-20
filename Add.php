@@ -87,7 +87,7 @@ form
 
 // Project: Dynamic Date Selector (DtTvB) - 2006-03-16
 // Script featured on JavaScript Kit- http://www.javascriptkit.com
-// Code begin...
+// Code begin..
 // Set the initial date.
 
 var ds_i_date = new Date();
